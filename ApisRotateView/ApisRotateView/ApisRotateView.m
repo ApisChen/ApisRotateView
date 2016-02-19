@@ -236,11 +236,12 @@
         return;
     }
     
+    _pageControl.hidden = NO;
     _pageControl.numberOfPages = imageCount;
     
     NSInteger currentPage = _collection.contentOffset.x/CGRectGetWidth(_collection.bounds)-1;
     //if (_scrollDirection==ScrollDirectionLeft) {
-        _pageControl.currentPage = imageCount-currentPage;
+    //    _pageControl.currentPage = imageCount-currentPage;
     //} else {
         _pageControl.currentPage = currentPage;
     //}
