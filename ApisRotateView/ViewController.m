@@ -12,6 +12,7 @@
 @interface ViewController ()<ApisRotateViewDelegate> {
 
     __weak IBOutlet ApisRotateView *rotateView;
+    __weak IBOutlet UIPageControl *pageControl;
 }
 
 @end
@@ -25,8 +26,11 @@
     UIImage *image1 = [UIImage imageNamed:@"1"];
     UIImage *image2 = [UIImage imageNamed:@"2"];
     UIImage *image3 = [UIImage imageNamed:@"3"];
-    rotateView.images = @[image1,image2,image3];
+    UIImage *image4 = [UIImage imageNamed:@"4"];
+    rotateView.images = @[image1,image2,image3,image4];
     rotateView.delegate = self;
+    rotateView.pageControl = pageControl;
+    //rotateView.scrollDirection = ScrollDirectionRight;
 }
 
 - (void)apisRotateView:(id)from clickedAtIndex:(NSInteger)index {

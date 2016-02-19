@@ -29,10 +29,13 @@ IB_DESIGNABLE
 @property (nonatomic, assign) IBInspectable BOOL autoScroll;
 //滚动时间间隔
 @property (nonatomic, assign) IBInspectable CGFloat cycleTime;
-//滚动方向
+//滚动方向 默认ScrollDirectionRight
 @property (nonatomic, assign) ScrollDirection scrollDirection;
+//pageControl外部引入
+@property (nonatomic, strong) UIPageControl *pageControl;
 
 @property (nonatomic, weak) id<ApisRotateViewDelegate> delegate;
+
 //- (void)scroll:(ScrollDirection)direction;
 //
 //- (void)startTimer;

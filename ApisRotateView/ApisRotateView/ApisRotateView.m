@@ -18,7 +18,6 @@
 @end
 
 @implementation ApisRotateView
-
 #pragma mark - getter/setter
 - (void)setImages:(NSArray<UIImage *> *)images {
     _images = images;
@@ -36,6 +35,15 @@
     }
 }
 
+//- (ScrollDirection)scrollDirection {
+//    return _scrollDirection;
+//}
+
+//- (void)setScrollDirection:(ScrollDirection)scrollDirection {
+//    NSLog(@"ScrollDirectionRight = %d, ScrollDirectionLeft = %d",ScrollDirectionRight, ScrollDirectionLeft);
+//    _scrollDirection = scrollDirection;
+//}
+
 - (UICollectionView *)collection {
     if (_collection==nil) {
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
@@ -47,6 +55,7 @@
         _collection.bounces = NO;
         _collection.backgroundColor = [UIColor clearColor];
         _collection.pagingEnabled = YES;
+        _scrollDirection = ScrollDirectionRight;
         [_collection registerClass:[RotateCell class] forCellWithReuseIdentifier:@"cell"];
         [self addSubview:_collection];
     }
@@ -71,6 +80,11 @@
         });
     }
     return _timer;
+}
+
+- (void)setPageControl:(UIPageControl *)pageControl {
+    _pageControl = pageControl;
+    [self pageControlSet];
 }
 
 #pragma mark - collection代理
@@ -186,6 +200,8 @@
             [self showImageAtIndex:1 animation:NO];
         }
     }
+    
+    [self pageControlSet];
 }
 
 #pragma mark - timer控制
@@ -207,5 +223,28 @@
         _timer = nil;
     }
 }
+
+#pragma mark - pageControl设置
+- (void)pageControlSet {
+    if (!_pageControl) {
+        return;
+    }
+    
+    NSInteger imageCount = _images.count;
+    if (imageCount<=1) {
+        _pageControl.hidden = YES;
+        return;
+    }
+    
+    _pageControl.numberOfPages = imageCount;
+    
+    NSInteger currentPage = _collection.contentOffset.x/CGRectGetWidth(_collection.bounds)-1;
+    //if (_scrollDirection==ScrollDirectionLeft) {
+        _pageControl.currentPage = imageCount-currentPage;
+    //} else {
+        _pageControl.currentPage = currentPage;
+    //}
+}
+
 
 @end
