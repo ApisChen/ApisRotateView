@@ -112,6 +112,19 @@
     return 0;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (!_delegate || ![_delegate respondsToSelector:@selector(apisRotateView:clickedAtIndex:)]) {
+        return;
+    }
+    
+    NSInteger imageCount = _images.count;
+    if (imageCount==1) {
+        [_delegate apisRotateView:self clickedAtIndex:0];
+    } else if (imageCount>1) {
+        [_delegate apisRotateView:self clickedAtIndex:indexPath.item-1];
+    }
+}
+
 - (void)layoutSubviews {
     [super layoutSubviews];
     self.collection.frame = self.bounds;

@@ -12,6 +12,12 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     ScrollDirectionLeft,
 };
 
+@protocol ApisRotateViewDelegate <NSObject>
+
+- (void)apisRotateView:(id)from clickedAtIndex:(NSInteger)index;
+
+@end
+
 IB_DESIGNABLE
 @interface ApisRotateView : UIView
 
@@ -26,6 +32,7 @@ IB_DESIGNABLE
 //滚动方向
 @property (nonatomic, assign) ScrollDirection scrollDirection;
 
+@property (nonatomic, weak) id<ApisRotateViewDelegate> delegate;
 //- (void)scroll:(ScrollDirection)direction;
 //
 //- (void)startTimer;

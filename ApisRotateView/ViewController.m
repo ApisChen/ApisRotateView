@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "ApisRotateView.h"
 
-@interface ViewController () {
+@interface ViewController ()<ApisRotateViewDelegate> {
 
     __weak IBOutlet ApisRotateView *rotateView;
 }
@@ -26,6 +26,11 @@
     UIImage *image2 = [UIImage imageNamed:@"2"];
     UIImage *image3 = [UIImage imageNamed:@"3"];
     rotateView.images = @[image1,image2,image3];
+    rotateView.delegate = self;
+}
+
+- (void)apisRotateView:(id)from clickedAtIndex:(NSInteger)index {
+    NSLog(@"click at index %ld",index);
 }
 
 - (void)didReceiveMemoryWarning {
