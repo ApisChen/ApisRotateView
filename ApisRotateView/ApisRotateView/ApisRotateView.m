@@ -35,15 +35,6 @@
     }
 }
 
-//- (ScrollDirection)scrollDirection {
-//    return _scrollDirection;
-//}
-
-//- (void)setScrollDirection:(ScrollDirection)scrollDirection {
-//    NSLog(@"ScrollDirectionRight = %d, ScrollDirectionLeft = %d",ScrollDirectionRight, ScrollDirectionLeft);
-//    _scrollDirection = scrollDirection;
-//}
-
 - (UICollectionView *)collection {
     if (_collection==nil) {
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
@@ -75,7 +66,9 @@
         dispatch_source_set_timer(_timer, dispatch_walltime(NULL, 0), _cycleTime*NSEC_PER_SEC, 0);
         dispatch_source_set_event_handler(_timer, ^{
             if (count++>0) {
-                [weakSelf scroll:_scrollDirection];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf scroll:_scrollDirection];
+                });
             }
         });
     }
